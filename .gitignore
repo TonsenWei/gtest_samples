@@ -1,32 +1,58 @@
-# Prerequisites
-*.d
+# Ignore CI build directory
+build/
+xcuserdata
+cmake-build-debug/
+.idea/
+bazel-bin
+bazel-genfiles
+bazel-googletest
+bazel-out
+bazel-testlogs
+# python
+*.pyc
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+# Visual Studio code files
+.vscode
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# Visual Studio files
+*.sdf
+*.opensdf
+*.VC.opendb
+*.suo
+*.user
+_ReSharper.Caches/
+Win32-Debug/
+Win32-Release/
+x64-Debug/
+x64-Release/
 
-# Fortran module files
-*.mod
-*.smod
+# Ignore autoconf / automake files
+Makefile.in
+aclocal.m4
+configure
+build-aux/
+autom4te.cache/
+googletest/m4/libtool.m4
+googletest/m4/ltoptions.m4
+googletest/m4/ltsugar.m4
+googletest/m4/ltversion.m4
+googletest/m4/lt~obsolete.m4
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# Ignore generated directories.
+googlemock/fused-src/
+googletest/fused-src/
 
-# Executables
-*.exe
-*.out
-*.app
+# macOS files
+.DS_Store
+
+# Ignore cmake generated directories and files.
+CMakeFiles
+CTestTestfile.cmake
+Makefile
+cmake_install.cmake
+googlemock/CMakeFiles
+googlemock/CTestTestfile.cmake
+googlemock/Makefile
+googlemock/cmake_install.cmake
+googlemock/gtest

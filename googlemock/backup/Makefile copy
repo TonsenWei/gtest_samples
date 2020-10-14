@@ -1,0 +1,71 @@
+GMOCK_DIR = ..
+GTEST_DIR = ../../googletest
+USER_DIR = .
+# CPPFLAGS += -isystem $(GTEST_DIR)/include
+CPPFLAGS += -isystem $(GTEST_DIR)/include -isystem $(GMOCK_DIR)/include/gmock -isystem $(USER_DIR)/source -isystem $(USER_DIR)/Mock
+CXXFLAGS += -g -Wall -Wextra -pthread -lgmock -std=c++11
+TESTS = run_test
+GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
+                $(GTEST_DIR)/include/gtest/internal/*.h
+# GMOCK
+# GMOCK_HEADERS = $(GMOCK_DIR)/include/gmock/*.h \
+#                 $(GMOCK_DIR)/include/gmock/internal/*.h \
+#                 $(GTEST_HEADERS)
+GMOCK_HEADERS = $(GMOCK_DIR)/include/gmock/*.h \
+                $(GMOCK_DIR)/include/gmock/internal/*.h
+
+# find source in .
+DIRS := $(shell find . -maxdepth 3 -type d)
+# FILES = $(foreach d, $(USER_DIR), $(wildcard $(d)/*.cpp))
+# OBJS = $(patsubst %.cpp, %.o, $(FILES))
+# FILES = $(foreach d, $(DIRS), $(wildcard $(d)/*.cpp))
+# OBJS = $(patsubst %.cpp, %.o, $(FILES))
+
+FILES = $(foreach d, $(DIRS), $(wildcard $(d)/*.cpp))
+OBJS = $(patsubst %.cpp, %.o, $(FILES))
+
+
+all : $(TESTS)
+
+clean :
+	rm -f $(TESTS) gmock_main.a *.o
+
+.PHONY : clean
+
+GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
+
+# GMOCK
+GMOCK_SRCS_ = $(GMOCK_DIR)/src/*.cc $(GMOCK_HEADERS)
+
+# add -I$(GMOCK_DIR)
+# gtest-all.o : $(GTEST_SRCS_)
+# 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) -c \
+# 	    $(GTEST_DIR)/src/gtest-all.cc
+
+# add -I$(GMOCK_DIR)
+# gtest_main.o : $(GTEST_SRCS_)
+# 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) -I$(GMOCK_DIR) $(CXXFLAGS) -c \
+# 	    $(GTEST_DIR)/src/gtest_main.cc
+
+# GMOCK
+gmock-all.o : $(GMOCK_SRCS_)
+	$(CXX) $(CPPFLAGS) -I$(GMOCK_DIR) $(CXXFLAGS) \
+            -c $(GMOCK_DIR)/src/gmock-all.cc
+# GMOCK
+gmock_main.o : $(GMOCK_SRCS_)
+	$(CXX) $(CPPFLAGS) -I$(GMOCK_DIR) $(CXXFLAGS) \
+            -c $(GMOCK_DIR)/src/gmock_main.cc
+
+# gtest_main.a : gtest-all.o gtest_main.o
+# 	$(AR) $(ARFLAGS) $@ $^
+
+# GMOCK
+gmock_main.a : gmock-all.o gmock_main.o
+	$(AR) $(ARFLAGS) $@ $^
+
+%.o : %.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+$(TESTS) : $(OBJS) gmock_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
