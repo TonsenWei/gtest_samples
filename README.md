@@ -5,7 +5,7 @@
 - ## [gtest使用入门(2)-原生例子分析](./readme/gtest使用入门(2)-原生例子分析.md)
 - ## [gtest使用入门(3)-使用gmock测试](./readme/gtest使用入门(3)-使用gmock测试.md)
 - ## [gtest使用入门(4)-函数的测试](./readme/gtest使用入门(4)-函数的单元测试.md)
-- ## [gtest使用入门(5)-函数的测试](./readme/gtest使用入门(5)-类的测试,使用测试参数.md)
+- ## [gtest使用入门(5)-类的测试,使用测试参数](./readme/gtest使用入门(5)-类的测试,使用测试参数.md)
 
 
 
