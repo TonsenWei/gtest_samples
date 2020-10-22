@@ -28,10 +28,10 @@
    ![](./images/ch04/02_sqrth.png)
 
    cpp文件如下：
-   ![](./iamges/ch04/../../images/ch04/03_sqrtcpp.png)
+   ![](./images/ch04/03_sqrtcpp.png)
 
    测试用例文件如下：
-   ![](./iamges/ch04/../../images/ch04/04_sqrt_ut_cpp.png)
+   ![](./images/ch04/04_sqrt_ut_cpp.png)
 
 
     至此待测源码准备完成。
